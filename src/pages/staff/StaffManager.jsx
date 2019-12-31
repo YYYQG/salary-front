@@ -49,6 +49,7 @@ class EditableCell extends React.PureComponent  {
           rules: [
             {
               required: true,
+              type: 'email',
               message: `请填写${title}。`,
             },
           ],
@@ -106,7 +107,7 @@ class EditableTable extends React.PureComponent  {
   };*/
 
   render() {
-    const { dataSource } = this.props;
+    const { dataSource,loading } = this.props;
     const components = {
       body: {
         row: EditableFormRow,
@@ -135,6 +136,7 @@ class EditableTable extends React.PureComponent  {
         bordered
         dataSource={dataSource}
         columns={columns}
+        loading={loading}
       />
     );
   }
@@ -144,6 +146,7 @@ class EditableTable extends React.PureComponent  {
 @connect(({ staffManager,loading })=>(
   {
     staffManager: staffManager,
+    loading: loading.effects['staffManager/filterStaffs']
   }
 ))
 @Form.create()
@@ -183,7 +186,6 @@ class StaffManager extends React.PureComponent {
     e.preventDefault();
     const {form,dispatch} = this.props
     form.validateFields((err,values)=>{
-      debugger
       dispatch({
         type: 'staffManager/filterStaffs',
         payload: values
@@ -238,7 +240,6 @@ class StaffManager extends React.PureComponent {
       }
     ];
     const {staffManager:{dataSource},form:{getFieldDecorator},loading} = this.props;
-
     const {isLoading} = this.state
 
     return (
@@ -264,9 +265,9 @@ class StaffManager extends React.PureComponent {
             </Form.Item>
           </Form>
         </div>
-        <Layout className={styles["staff-table"]}>
-          <EditableTable loading={isLoading} columns={columns} dataSource={dataSource} handleSave={(row)=>this.handleSave(row)} ></EditableTable>
-        </Layout>
+        <div className={styles["staff-table"]}>
+          <EditableTable loading={loading} columns={columns} dataSource={dataSource} handleSave={(row)=>this.handleSave(row)} ></EditableTable>
+        </div>
       </PageHeaderWrapper>
     )
 

@@ -47,7 +47,6 @@ const StaffManager={
   },
   reducers:{
     saveAllStaffs(state, action) {
-      debugger
       return {
         ...state,
         dataSource: action.payload,
@@ -61,7 +60,6 @@ const StaffManager={
         ...item,
         ...action.payload,
       });
-      debugger
       return {
         ...state,
         dataSource: newData,

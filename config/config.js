@@ -95,13 +95,19 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/StaffManager',
+              redirect: '/staffManager',
             },
             {
               path: '/StaffManager',
               name: '员工管理',
               icon: 'smile',
               component: './staff/StaffManager',
+            },
+            {
+              path: '/emailSend',
+              name: '邮件发送',
+              icon: 'smile',
+              component: './email/EmailSend',
             },
             {
               path: '/admin',
