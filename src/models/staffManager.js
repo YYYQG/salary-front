@@ -1,52 +1,75 @@
-import {getAllStaffs}  from '@/services/staffManager'
+import {getAllStaffs,saveStaffEmail}  from '@/services/staffManager'
 
 const StaffManager={
   namespace:"staffManager",
+
   state:{
-
-    dataSource:[
-      {
-        key: '1',
-        name: '胡彦斌',
-        department: 32,
-        sex: '西湖区湖底公园1号',
-        depositBank: '西湖区湖底公园1号',
-        bankAccount: '西湖区湖底公园1号',
-        entryDate: '西湖区湖底公园1号',
-        telephone: '西湖区湖底公园1号',
-        email: '西湖区湖底公园1号',
-      },
-      {
-        key: '2',
-        name: '胡彦斌',
-        department: 32,
-        sex: '西湖区湖底公园1号',
-        depositBank: '西湖区湖底公园1号',
-        bankAccount: '西湖区湖底公园1号',
-        entryDate: '西湖区湖底公园1号',
-        telephone: '西湖区湖底公园1号',
-        email: '西湖区湖底公园1号',
-      },
-    ]
-
+    dataSource: [],
   },
+
   effects:{
     *getAllStaffs(_, { call, put }) {
       const response = yield call(getAllStaffs);
-      yield put({
-        type: 'getAllStaffs',
-        payload: response,
-      });
+      if(response.status==200){
+        yield put({
+          type: 'saveAllStaffs',
+          payload: response.data,
+        });
+      }
     },
+    *saveStaffEmail({ payload },{ call, put }){
+      const response = yield call(saveStaffEmail,payload);
+      if(response.status==200){
+        yield put({
+          type: 'changeStaffEmail',
+          payload: payload,
+        });
+      }
+    },
+    *filterStaffs({ payload },{ call, put }){
+      const response = yield call(getAllStaffs);
+      if(response.status==200){
+        let dataSource = response.data;
+        debugger
+        if(payload.name!=""){
+          dataSource =  dataSource.filter((item)=>item.name==payload.name)
+        }
+        if(payload.department!=""){
+          dataSource =  dataSource.filter((item)=>item.department==payload.department)
+        }
+        yield put({
+          type: 'saveAllStaffs',
+          payload: dataSource,
+        });
+      }
+
+    }
   },
   reducers:{
-    getAllStaffs(state, action) {
-      return { ...state, dataSource:action.payload };
+    saveAllStaffs(state, action) {
+      debugger
+      return {
+        ...state,
+        dataSource: action.payload,
+      };
     },
+    changeStaffEmail(state, action){
+      const newData = [...state.dataSource];
+      const index = newData.findIndex(item => action.payload.key === item.key);
+      const item = newData[index];
+      newData.splice(index, 1, {
+        ...item,
+        ...action.payload,
+      });
+      debugger
+      return {
+        ...state,
+        dataSource: newData,
+      }
 
-
+    }
   }
 
-}
+};
 
 export default StaffManager
