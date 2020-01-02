@@ -6,6 +6,7 @@ import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
 import styles from './style.less';
+import _ from 'lodash'
 
 const { Step } = Steps
 
@@ -32,7 +33,9 @@ const steps = [
 ];
 
 
-
+@connect(({ emailSend }) => ({
+  emailSend: emailSend,
+}))
 class EmailSend extends React.PureComponent{
 
   constructor(props) {
@@ -50,6 +53,21 @@ class EmailSend extends React.PureComponent{
   prev() {
     const current = this.state.current - 1;
     this.setState({ current });
+  }
+
+  sendAll(){
+
+    const {emailSend:{dataSource,sendStatuses},dispatch} = this.props;
+    dataSource.forEach((item,index)=>{
+      const status = sendStatuses.find(it=>it.key===item.key)
+      if(_.isEmpty(status)||status.status===0){
+        dispatch({
+          type:"emailSend/sendEmail",
+          payload:item
+        })
+      }
+    })
+
   }
 
   render() {
@@ -71,7 +89,7 @@ class EmailSend extends React.PureComponent{
               </Button>
             )}
             {current === steps.length - 1 && (
-              <Button type="primary" onClick={() => message.success('Processing complete!')}>
+              <Button type="primary" onClick={() => this.sendAll()}>
                 发送
               </Button>
             )}

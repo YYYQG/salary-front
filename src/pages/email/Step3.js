@@ -13,16 +13,10 @@ class Step3 extends React.PureComponent {
 
   handleClick(record){
     const {dispatch} = this.props;
-    const status = {
-      key: record.key,
-      status: 1,
-    }
     dispatch({
-      type:"emailSend/saveEmailSendStatus",
-      payload:status
+      type:"emailSend/sendEmail",
+      payload:record
     })
-
-
   }
 
   render() {
@@ -31,7 +25,7 @@ class Step3 extends React.PureComponent {
       scriptUrl:'//at.alicdn.com/t/font_1591681_s702l7e0utt.js'
     })
 
-    const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+    const antIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
 
     const columns = [
       {
@@ -95,7 +89,8 @@ class Step3 extends React.PureComponent {
         editable: true,
       },
       {
-        title: '操作',
+        title: '发送',
+        width:75,
         dataIndex: 'operation',
         render: (text, record) => {
 
@@ -106,9 +101,9 @@ class Step3 extends React.PureComponent {
           }else if(status.status===1){
             return <Spin indicator={antIcon} />
           }else if(status.status===2) {
-            return <Icon type="check-circle" style={{ fontSize: 24,color:'#52c41a' }} />
+            return <Icon type="check-circle" style={{ fontSize: 22,color:'#52c41a' }} />
           }else{
-            return <Icon type="close-circle" style={{ fontSize: 24,color:'#f5222d' }} />
+            return <Icon type="close-circle" style={{ fontSize: 22,color:'#f5222d' }} />
           }
 
         },

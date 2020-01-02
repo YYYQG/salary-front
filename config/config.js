@@ -109,13 +109,13 @@ export default {
               icon: 'smile',
               component: './email/EmailSend',
             },
-            {
+            /*{
               path: '/admin',
               name: 'admin',
               icon: 'crown',
               component: './Admin',
               authority: ['admin'],
-            },
+            },*/
             {
               component: './404',
             },

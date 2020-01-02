@@ -32,5 +32,16 @@ export default {
     message:'',
     data:'',
 
-  }
+  },
+  'POST /api/email/send': (req, res) => {
+
+    setTimeout(() => {
+      res.send({
+        status:200,
+        message:null,
+        data:null,
+      });
+    }, 1000);
+
+  },
 };
