@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Button, Select, Divider,Upload,Icon } from 'antd';
-import router from 'umi/router';
+import { Button, Select, Upload, Icon } from 'antd';
 import styles from './style.less';
 
 const { Option } = Select;
@@ -15,7 +14,7 @@ const formItemLayout = {
   },
 };
 
-@connect(({ form }) => ({
+@connect(({ emailSend }) => ({
 
 }))
 class Step1 extends React.PureComponent {

@@ -118,6 +118,7 @@ class EditableTable extends React.Component {
       },
       {
         title: '操作',
+        width: '100px',
         dataIndex: 'operation',
         render: (text, record) => {
           const { editingKey } = this.state;
@@ -130,7 +131,7 @@ class EditableTable extends React.Component {
                     onClick={() => this.save(form, record.key)}
                     style={{ marginRight: 8 }}
                   >
-                    Save
+                    保存
                   </a>
                 )}
               </EditableContext.Consumer>
@@ -138,12 +139,12 @@ class EditableTable extends React.Component {
                 onClick={() => this.cancel(record.key)}
                 style={{ marginRight: 8 }}
               >
-                    Cancel
+                    取消
               </a>
             </span>
           ) : (
             <a disabled={editingKey !== ''} onClick={() => this.edit(record.key)}>
-              Edit
+              编辑
             </a>
           );
         },
@@ -163,6 +164,7 @@ class EditableTable extends React.Component {
         return;
       }
       const newData = [...this.props.dataSource];
+      const handleSave = this.props.handleSave;
       const index = newData.findIndex(item => key === item.key);
       if (index > -1) {
         const item = newData[index];
@@ -170,10 +172,12 @@ class EditableTable extends React.Component {
           ...item,
           ...row,
         });
-        this.setState({ data: newData, editingKey: '' });
+        this.setState({editingKey: '' });
+        handleSave(newData)
       } else {
         newData.push(row);
-        this.setState({ data: newData, editingKey: '' });
+        this.setState({editingKey: '' });
+        handleSave(newData)
       }
     });
   }

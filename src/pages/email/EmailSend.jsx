@@ -38,7 +38,7 @@ class EmailSend extends React.PureComponent{
   constructor(props) {
     super(props);
     this.state = {
-      current: 1,
+      current: 2,
     };
   }
 
@@ -52,14 +52,7 @@ class EmailSend extends React.PureComponent{
     this.setState({ current });
   }
 
-
-
   render() {
-
-
-
-
-
 
     const { current } = this.state;
     return (
@@ -74,17 +67,17 @@ class EmailSend extends React.PureComponent{
           <div className={styles.button}>
             {current < steps.length - 1 && (
               <Button type="primary" onClick={() => this.next()}>
-                Next
+                下一步
               </Button>
             )}
             {current === steps.length - 1 && (
               <Button type="primary" onClick={() => message.success('Processing complete!')}>
-                Done
+                发送
               </Button>
             )}
             {current > 0 && (
               <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                Previous
+                上一步
               </Button>
             )}
           </div>

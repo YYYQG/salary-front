@@ -11,13 +11,23 @@ import EditableTable from './EmailInfoEditableTable'
     dataSource:emailSend.dataSource,
 }))
 class Step2 extends React.PureComponent {
+
+
+  handleSave(newData){
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'emailSend/saveEmailInfo',
+      payload:newData,
+    })
+  }
+
   render() {
 
     const dataSource = this.props.dataSource;
 
     return (
       <div className={styles["step2-content"]}>
-        <EditableTable dataSource={dataSource} />
+        <EditableTable dataSource={dataSource} handleSave={(newData)=>{this.handleSave(newData)}} />
       </div>
     );
   }

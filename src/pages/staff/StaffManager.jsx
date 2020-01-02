@@ -158,8 +158,6 @@ class StaffManager extends React.PureComponent {
       isLoading:false
     }
 
-
-
   }
 
   componentDidMount(){
