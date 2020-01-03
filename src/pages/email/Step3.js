@@ -30,62 +30,62 @@ class Step3 extends React.PureComponent {
     const columns = [
       {
         title: '姓名',
-        dataIndex: 'name',
+        dataIndex: 'staffName',
         editable: true,
       },
       {
         title: '基本工资',
-        dataIndex: 'base_salary',
+        dataIndex: 'baseSalary',
         editable: true,
       },
       {
         title: '岗位工资',
-        dataIndex: 'post_salary',
+        dataIndex: 'postSalary',
         editable: true,
       },
       {
         title: '工龄工资',
-        dataIndex: 'seniority_salary',
+        dataIndex: 'senioritySalary',
         editable: true,
       },
       {
         title: '绩效、奖金',
-        dataIndex: 'performance_and_bonus',
+        dataIndex: 'performanceAndBonus',
         editable: true,
       },
       {
         title: '餐费补贴',
-        dataIndex: 'meal_allowance',
+        dataIndex: 'mealAllowance',
         editable: true,
       },
       {
         title: '其它扣除',
-        dataIndex: 'other_deduction',
+        dataIndex: 'otherDeduction',
         editable: true,
       },
       {
         title: '工资总额',
-        dataIndex: 'total_salary',
+        dataIndex: 'totalSalary',
         editable: true,
       },
       {
         title: '社保个人',
-        dataIndex: 'individual_social_security',
+        dataIndex: 'individualSocialSecurity',
         editable: true,
       },
       {
         title: '公积金个人',
-        dataIndex: 'individual_provident_fund',
+        dataIndex: 'individualProvidentFund',
         editable: true,
       },
       {
         title: '应扣所得税',
-        dataIndex: 'individual_income_tax',
+        dataIndex: 'individualIncomeTax',
         editable: true,
       },
       {
         title: '实际应付工资',
-        dataIndex: 'take_home_salary',
+        dataIndex: 'takeHomeSalary',
         editable: true,
       },
       {

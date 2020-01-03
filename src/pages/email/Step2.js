@@ -7,11 +7,21 @@ import styles from './style.less';
 import EditableTable from './EmailInfoEditableTable'
 
 
-@connect(({ emailSend }) => ({
+@connect(({ emailSend,loading }) => ({
     dataSource:emailSend.dataSource,
+    loading: loading.effects['emailSend/getAllEmailInformation']
 }))
 class Step2 extends React.PureComponent {
 
+  componentDidMount(){
+
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'emailSend/getAllEmailInformation',
+    })
+
+
+  }
 
   handleSave(newData){
     const {dispatch} = this.props;
@@ -23,11 +33,12 @@ class Step2 extends React.PureComponent {
 
   render() {
 
-    const dataSource = this.props.dataSource;
+    const {dataSource,loading} = this.props;
+
 
     return (
       <div className={styles["step2-content"]}>
-        <EditableTable dataSource={dataSource} handleSave={(newData)=>{this.handleSave(newData)}} />
+        <EditableTable dataSource={dataSource} handleSave={(newData)=>{this.handleSave(newData)}} loading = {loading} />
       </div>
     );
   }

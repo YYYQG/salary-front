@@ -1,6 +1,7 @@
 import React from "react";
 import {Form, Input, InputNumber, Popconfirm, Table} from "antd";
 import styles from "./style.less";
+import _ from 'lodash'
 
 const EditableContext = React.createContext();
 
@@ -23,18 +24,29 @@ class EditableCell extends React.Component {
       children,
       ...restProps
     } = this.props;
+    let rules;
+    if(dataIndex==='email'){
+      rules = [
+        {
+          required: true,
+          type: 'email',
+          message: `${title}格式不正确!`,
+        },
+      ]
+    }else {
+      rules = [
+       /* {
+          required: true,
+          message: `请输入${title}!`,
+        },*/
+      ]
+    }
     return (
       <td {...restProps}>
         {editing ? (
           <Form.Item style={{ margin: 0 }}>
             {getFieldDecorator(dataIndex, {
-              rules: [
-                {
-                  required: true,
-
-                  message: `请输入${title}!`,
-                },
-              ],
+              rules: rules,
               initialValue: record[dataIndex],
             })(this.getInput())}
           </Form.Item>
@@ -58,67 +70,86 @@ class EditableTable extends React.Component {
     this.columns = [
       {
         title: '姓名',
-        dataIndex: 'name',
+        dataIndex: 'staffName',
+        editable: true,
+        fixed: 'left',
+        width: 120,
+      },
+      {
+        title: '邮箱',
+        dataIndex: 'email',
         editable: true,
       },
       {
         title: '基本工资',
-        dataIndex: 'base_salary',
+        dataIndex: 'baseSalary',
         editable: true,
+        width: 120,
       },
       {
         title: '岗位工资',
-        dataIndex: 'post_salary',
+        dataIndex: 'postSalary',
         editable: true,
+        width: 120,
       },
       {
         title: '工龄工资',
-        dataIndex: 'seniority_salary',
+        dataIndex: 'senioritySalary',
         editable: true,
+        width: 120,
       },
       {
         title: '绩效、奖金',
-        dataIndex: 'performance_and_bonus',
+        dataIndex: 'performanceAndBonus',
         editable: true,
+        width: 120,
       },
       {
         title: '餐费补贴',
-        dataIndex: 'meal_allowance',
+        dataIndex: 'mealAllowance',
         editable: true,
+        width: 120,
       },
       {
         title: '其它扣除',
-        dataIndex: 'other_deduction',
+        dataIndex: 'otherDeduction',
         editable: true,
+        width: 120,
       },
       {
         title: '工资总额',
-        dataIndex: 'total_salary',
+        dataIndex: 'totalSalary',
         editable: true,
+        width: 120,
       },
       {
         title: '社保个人',
-        dataIndex: 'individual_social_security',
+        dataIndex: 'individualSocialSecurity',
         editable: true,
+        width: 120,
       },
       {
         title: '公积金个人',
-        dataIndex: 'individual_provident_fund',
+        dataIndex: 'individualProvidentFund',
         editable: true,
+        width: 120,
       },
       {
         title: '应扣所得税',
-        dataIndex: 'individual_income_tax',
+        dataIndex: 'individualIncomeTax',
         editable: true,
+        width: 120,
       },
       {
         title: '实际应付工资',
-        dataIndex: 'take_home_salary',
+        dataIndex: 'takeHomeSalary',
         editable: true,
+        width: 120,
       },
       {
         title: '操作',
         width: '100px',
+        fixed: 'right',
         dataIndex: 'operation',
         render: (text, record) => {
           const { editingKey } = this.state;
@@ -201,7 +232,7 @@ class EditableTable extends React.Component {
         ...col,
         onCell: record => ({
           record,
-          inputType: col.dataIndex === 'name' ? 'text' : 'number',
+          inputType: col.dataIndex === 'name'||col.dataIndex === 'email' ? 'text' : 'number',
           dataIndex: col.dataIndex,
           title: col.title,
           editing: this.isEditing(record),
@@ -220,6 +251,8 @@ class EditableTable extends React.Component {
           pagination={{
             onChange: this.cancel,
           }}
+          scroll={{ x: 1650 }}
+          loading={this.props.loading}
         />
       </EditableContext.Provider>
     );

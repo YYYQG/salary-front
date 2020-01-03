@@ -50,7 +50,7 @@ class EditableCell extends React.PureComponent  {
             {
               required: true,
               type: 'email',
-              message: `请填写${title}。`,
+              message: `${title}格式不对！`,
             },
           ],
           initialValue: record[dataIndex],
@@ -146,7 +146,8 @@ class EditableTable extends React.PureComponent  {
 @connect(({ staffManager,loading })=>(
   {
     staffManager: staffManager,
-    loading: loading.effects['staffManager/filterStaffs']
+    loading: loading.effects['staffManager/filterStaffs'],
+    loadingAll: loading.effects['staffManager/getAllStaffs']
   }
 ))
 @Form.create()
@@ -237,7 +238,7 @@ class StaffManager extends React.PureComponent {
         editable: true,
       }
     ];
-    const {staffManager:{dataSource},form:{getFieldDecorator},loading} = this.props;
+    const {staffManager:{dataSource},form:{getFieldDecorator},loading,loadingAll} = this.props;
     const {isLoading} = this.state
 
     return (
@@ -264,7 +265,7 @@ class StaffManager extends React.PureComponent {
           </Form>
         </div>
         <div className={styles["staff-table"]}>
-          <EditableTable loading={loading} columns={columns} dataSource={dataSource} handleSave={(row)=>this.handleSave(row)} ></EditableTable>
+          <EditableTable loading={loading||loadingAll} columns={columns} dataSource={dataSource} handleSave={(row)=>this.handleSave(row)} ></EditableTable>
         </div>
       </PageHeaderWrapper>
     )

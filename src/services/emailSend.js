@@ -8,3 +8,8 @@ export async function sendEmail(emailInfo) {
     }
   });
 }
+export async function getAllEmailInformation() {
+  return request('/api/email/informations',{
+    method: 'GET',
+  });
+}

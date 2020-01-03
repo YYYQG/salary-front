@@ -86,12 +86,12 @@ export default {
     },
     {
       path: '/',
-      component: '../layouts/SecurityLayout',
+      //component: '../layouts/SecurityLayout',
       routes: [
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
+          //authority: ['admin', 'user'],
           routes: [
             {
               path: '/',
@@ -178,4 +178,11 @@ export default {
   //     pathRewrite: { '^/server': '' },
   //   },
   // },
+  proxy: {
+    '/api/': {
+      target: 'http://10.17.81.139:8080/salary-email',
+      changeOrigin: true,
+      //pathRewrite: { '': '' },
+    },
+  },
 };

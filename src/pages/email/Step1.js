@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Button, Select, Upload, Icon } from 'antd';
+import { Button, Select, Upload, Icon,message } from 'antd';
 import styles from './style.less';
 
 const { Option } = Select;
@@ -14,18 +14,16 @@ const formItemLayout = {
   },
 };
 
-@connect(({ emailSend }) => ({
-
-}))
 class Step1 extends React.PureComponent {
   render() {
     const props = {
 
       name: 'file',
-      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+      action: '/api/excel/import',
       headers: {
         authorization: 'authorization-text',
       },
+      accept: '.xls,.xlsx',
       onChange(info) {
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
