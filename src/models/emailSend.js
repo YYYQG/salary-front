@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import {sendEmail,getAllEmailInformation}  from '@/services/emailSend'
+import {sendEmail,getAllEmailInformation,saveEmailInformation}  from '@/services/emailSend'
 
 const emailSend = {
   namespace:"emailSend",
@@ -16,13 +16,15 @@ const emailSend = {
   },
 
   effects:{
-    *saveEmailInfo({payload},{call,put}){
-      //const response = yield call
-      yield put({
-        type:"changeEmailInfo",
-        payload:payload
-      })
-      message.success("保存成功！")
+    *saveStaffEmailAndEmailInformation({ payload },{ call, put }){
+      const response = yield call(saveEmailInformation,payload);
+      if(response.status==200){
+        yield put({
+          type: 'changeEmailInformation',
+          payload: payload,
+        });
+        message.success("保存成功")
+      }
     },
     *getAllEmailInformation(_,{call,put}){
       const response = yield call(getAllEmailInformation)
@@ -88,8 +90,19 @@ const emailSend = {
         ...state,
         sendStatuses:sendStatuses,
       }
-
-
+    },
+    changeEmailInformation(state, action){
+      const newData = [...state.dataSource];
+      const index = newData.findIndex(item => action.payload.key === item.key);
+      const item = newData[index];
+      newData.splice(index, 1, {
+        ...item,
+        ...action.payload,
+      });
+      return {
+        ...state,
+        dataSource: newData,
+      }
     }
   }
 

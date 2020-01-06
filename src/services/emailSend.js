@@ -13,3 +13,18 @@ export async function getAllEmailInformation() {
     method: 'GET',
   });
 }
+
+export async function saveEmailInformation(param){
+
+  /*return request(`/api/staff/${param.key}?email=${param.email}`,{
+    method: 'PUT',
+  })*/
+  return request(`/api/email/informations/${param.key}`,{
+    method: 'PATCH',
+    ContentType: 'application/json',
+    data:{
+      ...param,
+    }
+  })
+
+}

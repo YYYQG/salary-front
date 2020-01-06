@@ -29,9 +29,9 @@ class Step1 extends React.PureComponent {
           console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
+          message.success(`${info.file.name} 上传成功！`);
         } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
+          message.error(`${info.file.name} 上传失败，请重试！`);
         }
       },
 
@@ -41,11 +41,13 @@ class Step1 extends React.PureComponent {
 
     return (
       <div className={styles["step1-content"]}>
+        <div className={styles.upload}>
           <Upload {...props} >
             <Button>
               <Icon type="upload" /> Excel上传
             </Button>
           </Upload>
+        </div>
       </div>
     );
   }

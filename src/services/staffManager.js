@@ -10,7 +10,11 @@ export async function saveStaffEmail(param){
     method: 'PUT',
   })*/
   return request(`/api/staff/${param.key}`,{
-    method: 'PUT',
+    method: 'PATCH',
+    ContentType: 'application/json',
+    data:{
+      email: param.email,
+    }
   })
 
 }

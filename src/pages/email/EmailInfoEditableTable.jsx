@@ -194,22 +194,12 @@ class EditableTable extends React.Component {
       if (error) {
         return;
       }
-      const newData = [...this.props.dataSource];
       const handleSave = this.props.handleSave;
-      const index = newData.findIndex(item => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        this.setState({editingKey: '' });
-        handleSave(newData)
-      } else {
-        newData.push(row);
-        this.setState({editingKey: '' });
-        handleSave(newData)
-      }
+      this.setState({editingKey: '' });
+      handleSave({
+        key: key,
+        ...row
+      })
     });
   }
 

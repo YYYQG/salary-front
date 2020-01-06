@@ -11,6 +11,11 @@ const StaffManager={
     *getAllStaffs(_, { call, put }) {
       const response = yield call(getAllStaffs);
       if(response.status==200){
+
+        response.data=response.data.map((item,index)=>({
+          key: item.id,
+          ...item
+        }))
         yield put({
           type: 'saveAllStaffs',
           payload: response.data,
@@ -19,6 +24,7 @@ const StaffManager={
     },
     *saveStaffEmail({ payload },{ call, put }){
       const response = yield call(saveStaffEmail,payload);
+      debugger
       if(response.status==200){
         yield put({
           type: 'changeStaffEmail',
@@ -30,7 +36,6 @@ const StaffManager={
       const response = yield call(getAllStaffs);
       if(response.status==200){
         let dataSource = response.data;
-        debugger
         if(payload.name!=""){
           dataSource =  dataSource.filter((item)=>item.name==payload.name)
         }
@@ -53,6 +58,7 @@ const StaffManager={
       };
     },
     changeStaffEmail(state, action){
+      debugger
       const newData = [...state.dataSource];
       const index = newData.findIndex(item => action.payload.key === item.key);
       const item = newData[index];

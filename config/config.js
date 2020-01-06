@@ -95,18 +95,18 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/staffManager',
+              redirect: '/staff-manager',
             },
             {
-              path: '/StaffManager',
+              path: '/staff-manager',
               name: '员工管理',
-              icon: 'smile',
+              icon: 'edit',
               component: './staff/StaffManager',
             },
             {
-              path: '/emailSend',
+              path: '/email-send',
               name: '邮件发送',
-              icon: 'smile',
+              icon: 'cloud',
               component: './email/EmailSend',
             },
             /*{
@@ -169,7 +169,8 @@ export default {
     },
   },
   manifest: {
-    basePath: '/',
+    basePath: '/salary-email/',
+    publicPath: '/salary-email/'
   }, // chainWebpack: webpackPlugin,
   // proxy: {
   //   '/server/api/': {
