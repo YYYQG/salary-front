@@ -35,6 +35,7 @@ const steps = [
 
 @connect(({ emailSend }) => ({
   emailSend: emailSend,
+  fileList:emailSend.fileList
 }))
 class EmailSend extends React.PureComponent{
 
@@ -46,6 +47,12 @@ class EmailSend extends React.PureComponent{
   }
 
   next() {
+    const fileList = this.props.fileList;
+    debugger
+    if(fileList.length==0){
+      message.info("请先上传excel!")
+      return
+    }
     const current = this.state.current + 1;
     this.setState({ current });
   }

@@ -12,7 +12,8 @@ const emailSend = {
         key: 1,
         status: 0,
       }
-    ]
+    ],
+    fileList:[]
   },
 
   effects:{
@@ -102,6 +103,11 @@ const emailSend = {
       return {
         ...state,
         dataSource: newData,
+      }
+    },
+    addFileList(state, action){
+      return {
+        ...state,fileList:[...state.fileList,action.payload]
       }
     }
   }
